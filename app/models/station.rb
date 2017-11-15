@@ -1,6 +1,8 @@
 require 'open-uri'
 
 class Station < ApplicationRecord
+  validates_uniqueness_of :number
+
   def self.pull_data
     url = 'https://ws2.bicicas.es/bench_status_map'
     file = open(url)
@@ -14,12 +16,14 @@ class Station < ApplicationRecord
     coordinates = bench_hash["geometry"]["coordinates"]
     pretty_name = pretty_name_dictionary[extracted_number]
 
-    create(
-      number: extracted_number,
-      coordinate_x: coordinates.first,
-      coordinate_y: coordinates.last,
-      name: pretty_name,
-    )
+    unless Station.where(number: extracted_number).present?
+      create!(
+        number: extracted_number,
+        coordinate_x: coordinates.first,
+        coordinate_y: coordinates.last,
+        name: pretty_name,
+      )
+    end
   end
 
   def self.pretty_name_dictionary

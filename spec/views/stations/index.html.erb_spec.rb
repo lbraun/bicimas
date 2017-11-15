@@ -10,7 +10,7 @@ RSpec.describe 'stations/index', type: :view do
         name: 'Name'
       ),
       Station.create!(
-        number: 2,
+        number: 3,
         coordinate_x: '8.88',
         coordinate_y: '9.99',
         name: 'Name'
@@ -20,7 +20,8 @@ RSpec.describe 'stations/index', type: :view do
 
   it 'renders a list of stations' do
     render
-    assert_select 'tr>td', text: '2', count: 2
+    assert_select 'tr>td', text: '2', count: 1
+    assert_select 'tr>td', text: '3', count: 1
     assert_select 'tr>td', text: '8.88', count: 2
     assert_select 'tr>td', text: '9.99', count: 2
     assert_select 'tr>td', text: 'Name', count: 2
