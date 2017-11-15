@@ -94,3 +94,9 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+
+def save_and_open_rendered
+  IO.write('/tmp/test.html', rendered)
+  `open /tmp/test.html`
+end
