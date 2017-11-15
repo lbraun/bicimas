@@ -61,6 +61,17 @@ class StationsController < ApplicationController
     end
   end
 
+  # GET /stations/refresh
+  # GET /stations/refresh.json
+  def refresh
+    Station.pull_data
+
+    respond_to do |format|
+      format.html { redirect_to stations_url, notice: 'Stations were successfully refreshed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_station

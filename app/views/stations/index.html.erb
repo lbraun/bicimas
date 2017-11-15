@@ -9,7 +9,7 @@
       <th>Coordinate x</th>
       <th>Coordinate y</th>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th colspan="1"></th>
     </tr>
   </thead>
 
@@ -21,8 +21,6 @@
         <td><%= station.coordinate_y %></td>
         <td><%= station.name %></td>
         <td><%= link_to 'Show', station %></td>
-        <td><%= link_to 'Edit', edit_station_path(station) %></td>
-        <td><%= link_to 'Destroy', station, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Station', new_station_path %>
+<%= link_to 'Refresh Stations', refresh_stations_path %>

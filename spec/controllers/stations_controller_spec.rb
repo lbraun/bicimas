@@ -138,4 +138,16 @@ RSpec.describe StationsController, type: :controller do
     end
   end
 
+  describe "GET #refresh" do
+    it "refreshes the stations" do
+      expect {
+        get :refresh, session: valid_session
+      }.to change(Station, :count).by(57)
+    end
+
+    it "redirects to the stations list" do
+      get :refresh, session: valid_session
+      expect(response).to redirect_to(stations_url)
+    end
+  end
 end

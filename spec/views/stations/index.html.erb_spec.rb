@@ -20,10 +20,25 @@ RSpec.describe 'stations/index', type: :view do
 
   it 'renders a list of stations' do
     render
-    save_and_open_rendered
     assert_select 'tr>td', text: '2', count: 2
     assert_select 'tr>td', text: '8.88', count: 2
     assert_select 'tr>td', text: '9.99', count: 2
     assert_select 'tr>td', text: 'Name', count: 2
+  end
+
+  it 'shows an refresh link' do
+    render
+    assert_select 'a', text: 'Refresh Stations', count: 1
+  end
+
+  context 'when the user clicks the refresh link' do
+    before do
+      render
+      pending 'need to implement capybara'
+      click_link 'Refresh Stations'
+    end
+
+    it 'refreshes the stations' do
+    end
   end
 end
