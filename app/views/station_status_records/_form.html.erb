@@ -1,0 +1,57 @@
+<%= form_with(model: station_status_record, local: true) do |form| %>
+  <% if station_status_record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(station_status_record.errors.count, "error") %> prohibited this station_status_record from being saved:</h2>
+
+      <ul>
+      <% station_status_record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :station_id %>
+    <%= form.number_field :station_id, id: :station_status_record_station_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bikes_total %>
+    <%= form.number_field :bikes_total, id: :station_status_record_bikes_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bikes_available %>
+    <%= form.number_field :bikes_available, id: :station_status_record_bikes_available %>
+  </div>
+
+  <div class="field">
+    <%= form.label :anchors %>
+    <%= form.text_field :anchors, id: :station_status_record_anchors %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_seen %>
+    <%= form.datetime_select :last_seen, id: :station_status_record_last_seen %>
+  </div>
+
+  <div class="field">
+    <%= form.label :online %>
+    <%= form.check_box :online, id: :station_status_record_online %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ip %>
+    <%= form.text_field :ip, id: :station_status_record_ip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :number_loans %>
+    <%= form.number_field :number_loans, id: :station_status_record_number_loans %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

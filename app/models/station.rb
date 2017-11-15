@@ -1,6 +1,8 @@
 require 'open-uri'
 
 class Station < ApplicationRecord
+  has_many :station_status_records
+
   validates_uniqueness_of :number
 
   def self.pull_data
@@ -16,14 +18,26 @@ class Station < ApplicationRecord
     coordinates = bench_hash["geometry"]["coordinates"]
     pretty_name = pretty_name_dictionary[extracted_number]
 
-    unless Station.where(number: extracted_number).present?
-      create!(
+    station = Station.find_by_number(extracted_number)
+
+    if station.nil?
+      station = create!(
         number: extracted_number,
         coordinate_x: coordinates.first,
         coordinate_y: coordinates.last,
         name: pretty_name,
       )
     end
+
+    station.station_status_records.create!(
+      bikes_total: bench_hash["properties"]["bikes_total"],
+      bikes_available: bench_hash["properties"]["bikes_available"],
+      anchors: bench_hash["properties"]["anchors"],
+      last_seen: bench_hash["properties"]["last_seen"],
+      online: bench_hash["properties"]["online"],
+      ip: bench_hash["properties"]["ip"],
+      number_loans: bench_hash["properties"]["number_loans"],
+    )
   end
 
   def self.pretty_name_dictionary

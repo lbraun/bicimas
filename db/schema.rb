@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115164150) do
+ActiveRecord::Schema.define(version: 20171115183208) do
+
+  create_table "station_status_records", force: :cascade do |t|
+    t.integer "station_id"
+    t.integer "bikes_total"
+    t.integer "bikes_available"
+    t.string "anchors"
+    t.datetime "last_seen"
+    t.boolean "online"
+    t.string "ip"
+    t.integer "number_loans"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "stations", force: :cascade do |t|
     t.integer "number"

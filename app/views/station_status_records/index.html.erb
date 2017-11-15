@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Station Status Records</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Station</th>
+      <th>Bikes total</th>
+      <th>Bikes available</th>
+      <th>Anchors</th>
+      <th>Last seen</th>
+      <th>Online</th>
+      <th>Ip</th>
+      <th>Number loans</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @station_status_records.each do |station_status_record| %>
+      <tr>
+        <td><%= station_status_record.station_id %></td>
+        <td><%= station_status_record.bikes_total %></td>
+        <td><%= station_status_record.bikes_available %></td>
+        <td><%= station_status_record.anchors %></td>
+        <td><%= station_status_record.last_seen %></td>
+        <td><%= station_status_record.online %></td>
+        <td><%= station_status_record.ip %></td>
+        <td><%= station_status_record.number_loans %></td>
+        <td><%= link_to 'Show', station_status_record %></td>
+        <td><%= link_to 'Edit', edit_station_status_record_path(station_status_record) %></td>
+        <td><%= link_to 'Destroy', station_status_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Station Status Record', new_station_status_record_path %>

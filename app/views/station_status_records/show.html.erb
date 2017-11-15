@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Station:</strong>
+  <%= @station_status_record.station_id %>
+</p>
+
+<p>
+  <strong>Bikes total:</strong>
+  <%= @station_status_record.bikes_total %>
+</p>
+
+<p>
+  <strong>Bikes available:</strong>
+  <%= @station_status_record.bikes_available %>
+</p>
+
+<p>
+  <strong>Anchors:</strong>
+  <%= @station_status_record.anchors %>
+</p>
+
+<p>
+  <strong>Last seen:</strong>
+  <%= @station_status_record.last_seen %>
+</p>
+
+<p>
+  <strong>Online:</strong>
+  <%= @station_status_record.online %>
+</p>
+
+<p>
+  <strong>Ip:</strong>
+  <%= @station_status_record.ip %>
+</p>
+
+<p>
+  <strong>Number loans:</strong>
+  <%= @station_status_record.number_loans %>
+</p>
+
+<%= link_to 'Edit', edit_station_status_record_path(@station_status_record) %> |
+<%= link_to 'Back', station_status_records_path %>
