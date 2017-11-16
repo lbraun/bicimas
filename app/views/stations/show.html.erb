@@ -1,47 +1,54 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to '< Back', stations_path %>
+
+<h1>Bicicas Station <%= @station.number %></h1>
+
 <p>
-  <strong>Number:</strong>
-  <%= @station.number %>
+  "<%= @station.name %>"
+  (<%= link_to "Show on Google Maps", @station.google_maps_link %>)
 </p>
 
 <p>
-  <strong>Coordinate x:</strong>
-  <%= @station.coordinate_x %>
+  <strong>Bikes Available:</strong>
+  <%= @station.last_status.bikes_available %> (as of <%= @station.last_status.created_at_s %>)
 </p>
 
 <p>
-  <strong>Coordinate y:</strong>
-  <%= @station.coordinate_y %>
+  <strong>Average Bikes Available at This Hour:</strong>
+  <%= @station.average_bikes_available(Time.now.hour) %>
 </p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @station.name %>
-</p>
-
-<p>
-  <strong>Google Maps:</strong>
-  <%= link_to @station.google_maps_name, @station.google_maps_link %>
-</p>
-
-<p>
-  <strong>Average Bikes Available:</strong>
+  <strong>Average Bikes Available in General:</strong>
   <%= @station.average_bikes_available %>
 </p>
 
 <p>
-  <strong>Average Bikes Available between 2 and 3:</strong>
-  <%= @station.average_bikes_available(14, 15) %>
+  <strong>Coordinates:</strong>
+  <%= @station.coordinate_y %> N, <%= @station.coordinate_x %> W
 </p>
 
-<p>
-  <strong>Average Bikes Available between 10 and 11:</strong>
-  <%= @station.average_bikes_available(10, 11) %>
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>Hour</th>
 
-<%= link_to 'Edit', edit_station_path(@station) %> |
-<%= link_to 'Back', stations_path %>
+      <% (0..23).each do |hour| %>
+        <th><%= hour %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Average Bikes Available</td>
+
+      <% (0..23).each do |hour| %>
+        <td><%= @station.average_bikes_available(hour) %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
 
 <p id="notice"><%= notice %></p>
 

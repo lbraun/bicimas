@@ -11,21 +11,34 @@ class Station < ApplicationRecord
 
   def google_maps_link
     query =
-      if [1, 3].include?(number)
-        "#{coordinate_x}, #{coordinate_y}"
+      if [1, 3, 58].include?(number)
+        "#{coordinate_y}, #{coordinate_x}"
       else
         google_maps_name
       end
     "https://www.google.com/maps?q=#{query}"
   end
 
-  def average_bikes_available(start_time = nil, end_time = nil)
-    if start_time.present? && end_time.present?
-      station_status_records.where("#{start_time} < HOUR(created_at) && HOUR(created_at) < #{end_time}")
-        .average(:bikes_available)
-    else
-      station_status_records.average(:bikes_available)
-    end
+  def average_bikes_available(hour = nil)
+    average_bikes_available =
+      if hour.present?
+        hour -= 1 # Adjust for UTC conversion
+
+        station_status_records
+          .where("#{hour} = extract(hour from created_at)")
+          .average(:bikes_available)
+      else
+        station_status_records.average(:bikes_available)
+      end
+    average_bikes_available.try(:round)
+  end
+
+  def capacity
+    last_status.anchors.scan(/number/).count
+  end
+
+  def last_status
+    station_status_records.last
   end
 
   def self.pull_data

@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+
 <h1>Stations</h1>
 
+<%= link_to '< Home', welcome_index_path %> |
 <%= link_to 'Refresh', refresh_stations_path %>
 
 <br>
@@ -11,9 +13,8 @@
   <thead>
     <tr>
       <th>Number</th>
-      <th>Coordinate x</th>
-      <th>Coordinate y</th>
       <th>Name</th>
+      <th>Bikes Available</th>
       <th colspan="1"></th>
     </tr>
   </thead>
@@ -22,9 +23,8 @@
     <% @stations.each do |station| %>
       <tr>
         <td><%= station.number %></td>
-        <td><%= station.coordinate_x %></td>
-        <td><%= station.coordinate_y %></td>
-        <td><%= station.name %></td>
+        <td><%= link_to station.name, station.google_maps_link %></td>
+        <td><%= station.station_status_records.last.bikes_available %> of <%= station.capacity %></td>
         <td><%= link_to 'Show', station %></td>
       </tr>
     <% end %>
