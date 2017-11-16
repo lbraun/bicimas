@@ -23,9 +23,9 @@
     <% @stations.each do |station| %>
       <tr>
         <td><%= station.number %></td>
-        <td><%= link_to station.name, station.google_maps_link %></td>
+        <td><%= link_to station.name, station %></td>
         <td><%= station.station_status_records.last.bikes_available %> of <%= station.capacity %></td>
-        <td><%= link_to 'Show', station %></td>
+        <td><%= link_to 'Show on Google Maps', station.google_maps_link %></td>
       </tr>
     <% end %>
   </tbody>
