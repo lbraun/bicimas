@@ -29,14 +29,14 @@ RSpec.describe 'stations/index', type: :view do
 
   it 'shows an refresh link' do
     render
-    assert_select 'a', text: 'Refresh Stations', count: 1
+    assert_select 'a', text: 'Refresh', count: 1
   end
 
   context 'when the user clicks the refresh link' do
     before do
       render
       pending 'need to implement capybara'
-      click_link 'Refresh Stations'
+      click_link 'Refresh'
     end
 
     it 'refreshes the stations' do

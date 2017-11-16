@@ -5,6 +5,29 @@ class Station < ApplicationRecord
 
   validates_uniqueness_of :number
 
+  def google_maps_name
+    "Bicicas Station #{number} - #{name}"
+  end
+
+  def google_maps_link
+    query =
+      if [1, 3].include?(number)
+        "#{coordinate_x}, #{coordinate_y}"
+      else
+        google_maps_name
+      end
+    "https://www.google.com/maps?q=#{query}"
+  end
+
+  def average_bikes_available(start_time = nil, end_time = nil)
+    if start_time.present? && end_time.present?
+      station_status_records.where("#{start_time} < HOUR(created_at) && HOUR(created_at) < #{end_time}")
+        .average(:bikes_available)
+    else
+      station_status_records.average(:bikes_available)
+    end
+  end
+
   def self.pull_data
     url = 'https://ws2.bicicas.es/bench_status_map'
     file = open(url)

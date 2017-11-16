@@ -2,6 +2,11 @@
 
 <h1>Stations</h1>
 
+<%= link_to 'Refresh', refresh_stations_path %>
+
+<br>
+<br>
+
 <table>
   <thead>
     <tr>
@@ -25,7 +30,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'Refresh Stations', refresh_stations_path %>
