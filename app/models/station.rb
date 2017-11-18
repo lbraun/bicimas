@@ -42,7 +42,7 @@ class Station < ApplicationRecord
   end
 
   def self.pull_data
-    url = 'https://ws2.bicicas.es/bench_status_map'
+    url = ENV['BICICAS_DATA_URL']
     file = open(url)
     contents = file.read
     bench_hashes = JSON.parse(contents)['features']

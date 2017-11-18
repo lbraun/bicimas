@@ -13,7 +13,7 @@ class Bicicas
   end
 
   def load_data
-    @url ||= 'https://ws2.bicicas.es/bench_status_map'
+    @url ||= ENV['BICICAS_DATA_URL']
     file = open(@url)
     contents = file.read
 
