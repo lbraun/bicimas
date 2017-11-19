@@ -30,26 +30,7 @@
   <%= @station.coordinate_y %> N, <%= @station.coordinate_x %> W
 </p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Hour</th>
-
-      <% (0..23).each do |hour| %>
-        <th><%= hour %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Average Bikes Available</td>
-
-      <% (0..23).each do |hour| %>
-        <td><%= @station.average_bikes_available(hour) %></td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
+<div id="bike_availability_chart" style="width:100%; height:400px;"></div>
 
 <p id="notice"><%= notice %></p>
 
@@ -90,3 +71,35 @@
     <% end %>
   </tbody>
 </table>
+
+<script type="text/javascript">
+  document.onreadystatechange = function () {
+    var myChart = Highcharts.chart('bike_availability_chart', {
+      chart: {
+        type: 'spline'
+      },
+      title: {
+        text: 'Typical Availability'
+      },
+      xAxis: {
+        title: {
+          text: 'Hour'
+        },
+        categories: [<%= (0..23).map { |hour| "'#{hour}:00'" || 0 }.join(', ').html_safe %>]
+      },
+      yAxis: {
+        tickInterval: 1,
+        max: <%= @station.capacity %>,
+        title: {
+          text: 'Bicycles Available'
+        }
+      },
+      series: [
+        {
+          name: 'Average Number of Available Bicycles',
+          data: [<%= (0..23).map { |hour| @station.average_bikes_available(hour) || 0 }.join(', ')  %>]
+        }
+      ]
+    });
+  };
+</script>
