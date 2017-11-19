@@ -16,16 +16,6 @@
 </p>
 
 <p>
-  <strong>Average Bikes Available at This Hour:</strong>
-  <%= @station.average_bikes_available(Time.now.hour) %>
-</p>
-
-<p>
-  <strong>Average Bikes Available in General:</strong>
-  <%= @station.average_bikes_available %>
-</p>
-
-<p>
   <strong>Coordinates:</strong>
   <%= @station.coordinate_y %> N, <%= @station.coordinate_x %> W
 </p>
@@ -85,7 +75,7 @@
         title: {
           text: 'Hour'
         },
-        categories: [<%= (0..23).map { |hour| "'#{hour}:00'" || 0 }.join(', ').html_safe %>]
+        categories: [<%= (0..23).map { |hour| "'#{hour}:00'" }.join(', ').html_safe %>]
       },
       yAxis: {
         tickInterval: 1,
@@ -96,8 +86,16 @@
       },
       series: [
         {
-          name: 'Average Number of Available Bicycles',
-          data: [<%= (0..23).map { |hour| @station.average_bikes_available(hour) || 0 }.join(', ')  %>]
+          name: 'Weekends',
+          data: <%= @station.chart_data(:from_weekends) %>
+        },
+        {
+          name: 'Week days',
+          data: <%= @station.chart_data(:from_week_days) %>
+        },
+        {
+          name: 'Today',
+          data: <%= @station.chart_data(:from_today) %>
         }
       ]
     });

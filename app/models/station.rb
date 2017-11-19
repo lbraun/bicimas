@@ -19,18 +19,16 @@ class Station < ApplicationRecord
     "https://www.google.com/maps?q=#{query}"
   end
 
-  def average_bikes_available(hour = nil)
-    average_bikes_available =
-      if hour.present?
-        hour -= 1 # Adjust for UTC conversion
+  def average_bikes_available(options = {})
+    ssr = station_status_records
+    ssr = ssr.from_hour(options[:hour]) if options[:hour].present?
+    ssr = ssr.send(options[:scope]) if options[:scope].present?
+    ssr.average(:bikes_available).try(:round)
+  end
 
-        station_status_records
-          .where("#{hour} = extract(hour from created_at)")
-          .average(:bikes_available)
-      else
-        station_status_records.average(:bikes_available)
-      end
-    average_bikes_available.try(:round)
+  def chart_data(scope = nil)
+    data = (0..23).map { |hour| average_bikes_available(hour: hour, scope: scope) || 'null' }
+    "[#{data.join(', ')}]"
   end
 
   def capacity
