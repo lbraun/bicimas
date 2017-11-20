@@ -44,7 +44,7 @@
   </thead>
 
   <tbody>
-    <% @station.station_status_records.each do |station_status_record| %>
+    <% @station.station_status_records.order(id: :desc).each do |station_status_record| %>
       <tr>
         <td><%= station_status_record.created_at.to_s(:short) %></td>
         <td><%= station_status_record.bikes_total %></td>
