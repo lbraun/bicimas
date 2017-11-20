@@ -1,4 +1,5 @@
 class StationStatusRecord < ApplicationRecord
+  scope :recent, -> { where("(#{created_at_sql}) > (#{current_timestamp_sql} - interval '12 hours')").order("EXTRACT(HOUR FROM #{created_at_sql}), EXTRACT(MINUTE FROM #{created_at_sql})") }
   scope :from_today, -> { where("DATE(#{created_at_sql}) = DATE(#{current_timestamp_sql})") }
   scope :from_weekends, -> { where("EXTRACT(DOW FROM #{created_at_sql}) IN (0,6)") }
   scope :from_week_days, -> { where("EXTRACT(DOW FROM #{created_at_sql}) NOT IN (0,6)") }

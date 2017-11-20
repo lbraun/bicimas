@@ -72,10 +72,11 @@
         text: 'Typical Availability'
       },
       xAxis: {
+        type: 'datetime',
         title: {
           text: 'Hour'
         },
-        categories: [<%= (0..23).map { |hour| "'#{hour}:00'" }.join(', ').html_safe %>]
+        // categories: [<%= (0..23).map { |hour| "'#{hour}:00'" }.join(', ').html_safe %>]
       },
       yAxis: {
         tickInterval: 1,
@@ -95,7 +96,7 @@
         },
         {
           name: 'Today',
-          data: <%= @station.chart_data(:from_today) %>
+          data: <%= @station.chart_data(:recent) %>
         }
       ]
     });

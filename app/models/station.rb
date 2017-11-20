@@ -28,8 +28,14 @@ class Station < ApplicationRecord
   end
 
   def chart_data(scope = nil)
-    data = (0..23).map { |hour| average_bikes_available(hour: hour, scope: scope) || 'null' }
-    "[#{data.join(', ')}]"
+    if [:from_today, :recent].include?(scope)
+      ssrs = station_status_records
+      ssrs = ssrs.send(scope) if scope.present?
+      data = ssrs.map { |ssr| "[Date.UTC(1, 1, 1, #{ssr.created_at.hour}, #{ssr.created_at.min}, #{ssr.created_at.sec}), #{ssr.bikes_available}]" }
+    else
+      data = (0..23).map { |hour| "[Date.UTC(1, 1, 1, #{hour}, 0, 0), #{average_bikes_available(hour: hour, scope: scope) || 'null'}]" }
+    end
+    "[\n#{data.join(",\n")}\n]"
   end
 
   def capacity
