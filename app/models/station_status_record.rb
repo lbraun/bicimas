@@ -4,8 +4,9 @@ class StationStatusRecord < ApplicationRecord
   scope :from_week_days, -> { where('EXTRACT(DOW FROM created_at) NOT IN (0,6)') }
 
   def self.from_hour(hour)
-    # Subtract 1 hour to adjust for UTC conversion
-    where("#{hour - 1} = EXTRACT(HOUR FROM created_at)")
+    # https://stackoverflow.com/questions/23420859/how-to-map-rails-timezone-names-to-postgresql
+    postgres_time_zone = ActiveSupport::TimeZone.find_tzinfo(Time.zone.name).identifier
+    where("? = EXTRACT(HOUR FROM (created_at AT TIME ZONE ?))", hour, postgres_time_zone)
   end
 
   def created_at_s
