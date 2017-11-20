@@ -10,8 +10,9 @@ class Station < ApplicationRecord
   end
 
   def google_maps_link
+    google_maps_link_exceptions = [1, 3, 41, 42, 46, 48, 49, 50, 51, 52, 54, 58]
     query =
-      if [1, 3, 41, 42, 48, 49, 50, 51, 52, 58].include?(number)
+      if google_maps_link_exceptions.include?(number)
         "#{coordinate_y}, #{coordinate_x}"
       else
         google_maps_name
