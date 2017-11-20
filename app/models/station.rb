@@ -11,7 +11,7 @@ class Station < ApplicationRecord
 
   def google_maps_link
     query =
-      if [1, 3, 58].include?(number)
+      if [1, 3, 41, 42, 48, 49, 50, 51, 52, 58].include?(number)
         "#{coordinate_y}, #{coordinate_x}"
       else
         google_maps_name
