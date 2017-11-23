@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-
 <h1>Stations</h1>
 
-<%= link_to '< Home', welcome_index_path %> |
-<%= link_to 'Refresh', refresh_stations_path %>
+<p>
+  <%= link_to '< Home', welcome_index_path %> |
+  <%= link_to 'Refresh', refresh_stations_path %>
+</p>
 
-<br>
-<br>
+<p>Last updated at <%= StationStatusRecord.last.try(:created_at_s) %></p>
 
 <table>
   <thead>
