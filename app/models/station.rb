@@ -41,7 +41,7 @@ class Station < ApplicationRecord
   end
 
   def self.pull_data
-    url = ENV['BICICAS_DATA_URL']
+    url = ENV['BICIMAS_DATA_URL']
     file = open(url)
     contents = file.read
     bench_hashes = JSON.parse(contents)['features']

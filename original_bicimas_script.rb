@@ -5,7 +5,7 @@ require 'csv'
 require 'highline/import'
 require 'terminal-table'
 
-class Bicicas
+class Bicimas
   attr_reader :benches
 
   def initialize
@@ -13,12 +13,12 @@ class Bicicas
   end
 
   def load_data
-    @url ||= ENV['BICICAS_DATA_URL']
+    @url ||= ENV['BICIMAS_DATA_URL']
     file = open(@url)
     contents = file.read
 
-    bicicas_hash = JSON.parse(contents)
-    bench_hashes = bicicas_hash["features"]
+    bicimas_hash = JSON.parse(contents)
+    bench_hashes = bicimas_hash["features"]
     @benches = bench_hashes.map { |bench_hash| Bench.new(bench_hash) }
   end
 
@@ -41,7 +41,7 @@ class Bicicas
       :google_maps_name,
     ]
 
-    CSV.open("bicicas_#{timestamp}.csv", "w") do |csv|
+    CSV.open("bicimas_#{timestamp}.csv", "w") do |csv|
       csv << fields.map { |field| field.to_s } # Headers
 
       benches.each do |bench|
@@ -184,7 +184,7 @@ class Bench
   end
 end
 
-bicicas = Bicicas.new
+bicimas = Bicimas.new
 input = nil
 
 until %w(q quit Q QUIT stop end).include?(input) do
@@ -197,17 +197,17 @@ until %w(q quit Q QUIT stop end).include?(input) do
 
   case input
   when "1"
-    bicicas.generate_csv
+    bicimas.generate_csv
     puts "Done!"
   when "2"
-    bicicas.print_favorite_bench_information
+    bicimas.print_favorite_bench_information
   when "3"
     bench_id = ask("\nWhat's the bench's ID? ", Integer) { |id| id.in = 1..58 }
-    bench = bicicas.get_bench(bench_id)
+    bench = bicimas.get_bench(bench_id)
     puts "\nHere you go!"
     puts "\tCoordinates: #{bench.google_maps_coordinates}"
     puts "\tName: #{bench.google_maps_name}"
   when "4"
-    bicicas = Bicicas.new
+    bicimas = Bicimas.new
   end
 end

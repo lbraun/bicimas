@@ -9,8 +9,8 @@ default: &default
 
 development:
   <<: *default
-  database: bicicas_development
+  database: bicimas_development
 
 test:
   <<: *default
-  database: bicicas_test
+  database: bicimas_test

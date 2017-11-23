@@ -6,7 +6,7 @@ ar_internal_metadata:
   - value
   - created_at
   - updated_at
-  records: 
+  records:
   - - environment
     - development
     - '2017-11-15 18:14:04.602242'
@@ -26,7 +26,7 @@ station_status_records:
   - number_loans
   - created_at
   - updated_at
-  records: 
+  records:
   - - 1
     - 172
     - 0
@@ -5793,7 +5793,7 @@ stations:
   - name
   - created_at
   - updated_at
-  records: 
+  records:
   - - 172
     - 1
     - -0.06999
