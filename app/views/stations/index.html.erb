@@ -24,7 +24,13 @@
       <tr>
         <td><%= station.number %></td>
         <td><%= link_to station.name, station %></td>
-        <td><%= station.station_status_records.last.bikes_available %> of <%= station.capacity %></td>
+        <td>
+          <% if station.last_status %>
+            <%= station.last_status.bikes_available %> of <%= station.capacity %>
+          <% else %>
+            No data
+          <% end %>
+        </td>
         <td><%= link_to 'Show on Google Maps', station.google_maps_link %></td>
       </tr>
     <% end %>

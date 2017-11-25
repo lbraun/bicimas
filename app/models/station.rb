@@ -33,7 +33,7 @@ class Station < ApplicationRecord
   end
 
   def capacity
-    last_status.anchors.scan(/number/).count
+    last_status && last_status.anchors.scan(/number/).count
   end
 
   def last_status

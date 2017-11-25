@@ -12,7 +12,11 @@
 
 <p>
   <strong>Bikes Available:</strong>
-  <%= @station.last_status.bikes_available %> (as of <%= @station.last_status.created_at_s %>)
+  <% if @station.last_status.present? %>
+    <%= @station.last_status.bikes_available %> (as of <%= @station.last_status.created_at_s %>)
+  <% else %>
+    Not sure, sorry!
+  <% end %>
 </p>
 
 <p>

@@ -22,8 +22,6 @@ RSpec.describe 'stations/index', type: :view do
     render
     assert_select 'tr>td', text: '2', count: 1
     assert_select 'tr>td', text: '3', count: 1
-    assert_select 'tr>td', text: '8.88', count: 2
-    assert_select 'tr>td', text: '9.99', count: 2
     assert_select 'tr>td', text: 'Name', count: 2
   end
 
