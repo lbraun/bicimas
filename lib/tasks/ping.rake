@@ -5,13 +5,15 @@ namespace :ping do
   task :refresh do
     puts "Attempting to pull fresh data..."
 
-    if ENV['URL']
-      puts "Sending ping..."
+    if ENV['BICIMAS_REFRESH_URL']
+      puts "Sending ping to #{ENV['BICIMAS_REFRESH_URL']}..."
 
-      uri = URI(ENV['URL'])
-      Net::HTTP.get_response(uri)
+      uri = URI(ENV['BICIMAS_REFRESH_URL'])
+      response = Net::HTTP.get_response(uri)
 
-      puts "Success!"
+      puts response.inspect
+    else
+      puts "Error: URL to ping is not defined"
     end
   end
 end
