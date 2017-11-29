@@ -14,24 +14,31 @@
  *= require_self
  */
 
-/* Labels used to visualize benches */
+.bench {
+    width: 100%;
+}
+
+/* Labels are used to visualize benches */
 .label {
     background-color: #777;
     padding: .2em .6em .3em;
     font-weight: 700;
-    line-height: 1;
     color: #fff;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: .25em;
+    width: 45px;
 }
 
 .label-green {
-    background-color: green;
+    background-color: #659C2B;
 }
 
 .label-yellow {
-    background-color: yellow;
-    color: black;
+    background-color: #FDB92C;
+}
+
+.label-red {
+    background-color: #C42A2E;
 }

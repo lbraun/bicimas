@@ -1,12 +1,16 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= link_to @station_status_record.station, @station_status_record.station %></h1>
+
 <p>
-  <strong>Station:</strong>
-  <%= @station_status_record.station_id %>
+  <strong>Status as of:</strong>
+  <%= @station_status_record.created_at.to_s(:long) %>
+  <%= link_to "<< Earlier", @station_status_record.previous_record %> |
+  <%= link_to "Later >>", @station_status_record.next_record %>
 </p>
 
 <p>
-  <strong>Bikes total:</strong>
+  <strong>Bikes present:</strong>
   <%= @station_status_record.bikes_total %>
 </p>
 
@@ -17,7 +21,7 @@
 
 <p>
   <strong>Anchors:</strong>
-  <table>
+  <table class="bench">
     <tr>
       <% @station_status_record.anchor_records.each do |anchor| %>
         <td class="label"><%= anchor["number"] %></td>
@@ -26,18 +30,21 @@
     <tr>
       <% @station_status_record.anchor_records.each do |anchor| %>
         <% if anchor["bicycle"].present? %>
-          <td class="label label-green"><%= anchor["bicycle"] %></td>
+          <% if anchor["incidents"].present? %>
+            <td class="label label-yellow">
+              <%= anchor["bicycle"] %>
+              <br>
+              😢
+            </td>
+          <% else %>
+            <td class="label label-green">
+              <%= anchor["bicycle"] %>
+              <br>
+              😀
+            </td>
+          <% end %>
         <% else %>
-          <td></td>
-        <% end %>
-      <% end %>
-    </tr>
-    <tr>
-      <% @station_status_record.anchor_records.each do |anchor| %>
-        <% if anchor["incidents"].present? %>
-          <td class="label label-yellow"><%= anchor["incidents"] %></td>
-        <% else %>
-          <td></td>
+            <td></td>
         <% end %>
       <% end %>
     </tr>
@@ -63,6 +70,3 @@
   <strong>Number loans:</strong>
   <%= @station_status_record.number_loans %>
 </p>
-
-<%= link_to 'Edit', edit_station_status_record_path(@station_status_record) %> |
-<%= link_to 'Back', station_status_records_path %>

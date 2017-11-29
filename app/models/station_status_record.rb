@@ -1,4 +1,6 @@
 class StationStatusRecord < ApplicationRecord
+  belongs_to :station
+
   scope :from_today, -> { where("DATE(#{created_at_sql}) = DATE(#{current_timestamp_sql})") }
   scope :from_weekends, -> { where("EXTRACT(DOW FROM #{created_at_sql}) IN (0,6)") }
   scope :from_week_days, -> { where("EXTRACT(DOW FROM #{created_at_sql}) NOT IN (0,6)") }
@@ -26,12 +28,28 @@ class StationStatusRecord < ApplicationRecord
     "CURRENT_TIMESTAMP AT TIME ZONE '#{postgres_time_zone}'"
   end
 
+  def to_s
+    "#{bikes_available} out of #{anchor_records.count} bikes available (as of #{created_at_string})"
+  end
+
   def created_at_s
     created_at.to_s(:short)
+  end
+
+  def created_at_string
+    created_at.to_s(:long)
   end
 
   def anchor_records
     anchors.split '"number"'
     JSON.parse(anchors.gsub('=>',':').gsub('nil', 'null'))
+  end
+
+  def next_record
+    station.station_status_records.where("id > #{id}").first
+  end
+
+  def previous_record
+    station.station_status_records.where("id < #{id}").last
   end
 end
