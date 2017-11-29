@@ -29,4 +29,9 @@ class StationStatusRecord < ApplicationRecord
   def created_at_s
     created_at.to_s(:short)
   end
+
+  def anchor_records
+    anchors.split '"number"'
+    JSON.parse(anchors.gsub('=>',':').gsub('nil', 'null'))
+  end
 end

@@ -17,7 +17,31 @@
 
 <p>
   <strong>Anchors:</strong>
-  <%= @station_status_record.anchors %>
+  <table>
+    <tr>
+      <% @station_status_record.anchor_records.each do |anchor| %>
+        <td class="label"><%= anchor["number"] %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <% @station_status_record.anchor_records.each do |anchor| %>
+        <% if anchor["bicycle"].present? %>
+          <td class="label label-green"><%= anchor["bicycle"] %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+      <% end %>
+    </tr>
+    <tr>
+      <% @station_status_record.anchor_records.each do |anchor| %>
+        <% if anchor["incidents"].present? %>
+          <td class="label label-yellow"><%= anchor["incidents"] %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+      <% end %>
+    </tr>
+  </table>
 </p>
 
 <p>

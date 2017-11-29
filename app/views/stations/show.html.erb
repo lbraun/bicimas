@@ -26,6 +26,8 @@
 
 <div id="bike_availability_chart" style="width:100%; height:400px;"></div>
 
+<div id="bike_loans_chart" style="width:100%; height:400px;"></div>
+
 <p id="notice"><%= notice %></p>
 
 <br>
@@ -67,8 +69,8 @@
 </table>
 
 <script type="text/javascript">
-  document.onreadystatechange = function () {
-    var myChart = Highcharts.chart('bike_availability_chart', {
+  window.onload = function () {
+    var bikeAvailabilityChart = Highcharts.chart('bike_availability_chart', {
       chart: {
         type: 'spline'
       },
@@ -91,15 +93,42 @@
       series: [
         {
           name: 'Weekends',
-          data: <%= @station.chart_data(:from_weekends) %>
+          data: <%= @station.chart_data(:bikes_available, :from_weekends) %>
         },
         {
           name: 'Week days',
-          data: <%= @station.chart_data(:from_week_days) %>
+          data: <%= @station.chart_data(:bikes_available, :from_week_days) %>
         },
         {
           name: 'Today',
-          data: <%= @station.chart_data(:from_today) %>
+          data: <%= @station.chart_data(:bikes_available, :from_today) %>
+        }
+      ]
+    });
+
+    var bikeLoansChart = Highcharts.chart('bike_loans_chart', {
+      chart: {
+        type: 'spline'
+      },
+      title: {
+        text: 'Number of loans over time'
+      },
+      xAxis: {
+        title: {
+          text: 'Hour'
+        },
+        categories: [<%= (0..23).map { |hour| "'#{hour}:00'" }.join(', ').html_safe %>]
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Number of Loans'
+        }
+      },
+      series: [
+        {
+          name: 'Today',
+          data: <%= @station.chart_data(:number_loans, :from_today) %>
         }
       ]
     });

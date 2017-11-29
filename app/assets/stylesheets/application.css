@@ -13,3 +13,25 @@
  *= require_tree .
  *= require_self
  */
+
+/* Labels used to visualize benches */
+.label {
+    background-color: #777;
+    padding: .2em .6em .3em;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.label-green {
+    background-color: green;
+}
+
+.label-yellow {
+    background-color: yellow;
+    color: black;
+}

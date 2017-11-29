@@ -20,15 +20,15 @@ class Station < ApplicationRecord
     "https://www.google.com/maps?q=#{query}"
   end
 
-  def average_bikes_available(options = {})
+  def average(options = {})
     ssr = station_status_records
     ssr = ssr.from_hour(options[:hour]) if options[:hour].present?
     ssr = ssr.send(options[:scope]) if options[:scope].present?
-    ssr.average(:bikes_available).try(:round)
+    ssr.average(options[:attribute]).try(:round)
   end
 
-  def chart_data(scope = nil)
-    data = (0..23).map { |hour| average_bikes_available(hour: hour, scope: scope) || 'null' }
+  def chart_data(attribute, scope = nil)
+    data = (0..23).map { |hour| average(attribute: attribute, hour: hour, scope: scope) || 'null' }
     "[#{data.join(', ')}]"
   end
 
