@@ -1,5 +1,24 @@
 <h1>Welcome</h1>
 
-<p><%= link_to "List of all stations", stations_path %></p>
-<p><%= link_to "Official Bicicas map", "http://gestiona.bicicas.es/apps/mapaweb.html" %></p>
-<p><%= link_to "Bicicas homepage", "http://bicicas.es/" %></p>
+<ul>
+  <li><%= link_to "List of all stations", stations_path %></li>
+  <li><%= link_to "Official Bicicas map", "http://gestiona.bicicas.es/apps/mapaweb.html" %></li>
+  <li><%= link_to "Bicicas homepage", "http://bicicas.es/" %></li>
+</ul>
+
+<h2>Favorite Stations</h2>
+
+<% if @favorite_stations.present? %>
+  <table>
+    <% @favorite_stations.each do |station| %>
+      <tr>
+        <td><%= link_to station, station %></td>
+        <td><%= link_to "#{station.last_status.bikes_available} bikes", station.last_status %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <p>(As of <%= StationStatusRecord.last.created_at_string %>)</p>
+<% else %>
+  No favorites saved yet!
+<% end %>

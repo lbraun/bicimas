@@ -1,10 +1,11 @@
 class StationsController < ApplicationController
-  before_action :set_station, only: [:show, :edit, :update, :destroy]
+  before_action :set_station, only: [:show, :edit, :update, :destroy, :toggle_favorite]
 
   # GET /stations
   # GET /stations.json
   def index
-    @stations = Station.all
+    @favorite_station_ids = favorite_station_ids
+    @stations = Station.all.sort_by { |station| station.popularity_rank }
   end
 
   # GET /stations/1
@@ -69,6 +70,24 @@ class StationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to stations_url, notice: 'Stations were successfully refreshed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /stations/1/toggle_favorite
+  def toggle_favorite
+    ids = favorite_station_ids
+
+    notice =
+      if ids.include?(@station.id)
+        cookies[:favorite_station_ids] = ids -= [@station.id]
+        "#{@station} is no longer one of your favorites."
+      else
+        cookies[:favorite_station_ids] = ids += [@station.id]
+        "#{@station} is now one of your favorites!"
+      end
+
+    respond_to do |format|
+      format.html { redirect_to stations_url, notice: notice }
     end
   end
 

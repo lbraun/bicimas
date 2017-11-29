@@ -42,3 +42,12 @@
 .label-red {
     background-color: #C42A2E;
 }
+
+.favorite-column {
+    text-align: center;
+}
+
+.favorite-column a {
+    text-decoration: none;
+    background: none;
+}

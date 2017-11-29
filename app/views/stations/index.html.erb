@@ -12,6 +12,8 @@
 <table>
   <thead>
     <tr>
+      <th class="favorite-column">❤</th>
+      <th>Rank</th>
       <th>Number</th>
       <th>Name</th>
       <th>Bikes Available</th>
@@ -22,6 +24,14 @@
   <tbody>
     <% @stations.each do |station| %>
       <tr>
+        <td class="favorite-column">
+          <% if @favorite_station_ids.include?(station.id) %>
+            <%= link_to "✅", toggle_favorite_station_path(station) %>
+          <% else %>
+            <%= link_to "⬜", toggle_favorite_station_path(station) %>
+          <% end %>
+        </td>
+        <td><%= station.popularity_rank %></td>
         <td><%= station.number %></td>
         <td><%= link_to station.name, station %></td>
         <td>

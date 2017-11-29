@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   resources :station_status_records
   resources :stations do
     get 'refresh', on: :collection
+    get 'toggle_favorite', on: :member
   end
 end

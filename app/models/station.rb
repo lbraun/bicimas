@@ -40,6 +40,10 @@ class Station < ApplicationRecord
     last_status && last_status.anchors.scan(/number/).count
   end
 
+  def popularity_rank
+    Station.popularity_rankings[id][:rank]
+  end
+
   def last_status
     station_status_records.last
   end
@@ -77,6 +81,24 @@ class Station < ApplicationRecord
       ip: bench_hash["properties"]["ip"],
       number_loans: bench_hash["properties"]["number_loans"],
     )
+  end
+
+  def self.popularity_rankings
+    @rankings ||= build_rankings_hash
+    @rankings
+  end
+
+  def self.build_rankings_hash
+    ranking_tuples = StationStatusRecord.group(:station_id)
+      .sum(:number_loans)
+      .sort_by { |tuple| tuple[1] }
+      .reverse
+
+    rankings = {}
+    ranking_tuples.each_with_index do |ranking, i|
+      rankings[ranking[0]] = { rank: i + 1, loan_factor: ranking[1] }
+    end
+    rankings
   end
 
   def self.pretty_name_dictionary

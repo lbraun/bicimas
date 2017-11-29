@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to '< Back', stations_path %> |
-<%= link_to 'Refresh', refresh_stations_path %>
+<p>
+  <%= link_to '< Back to all stations', stations_path %> |
+  <%= link_to 'Refresh all stations', refresh_stations_path %>
+</p>
 
 <h1>Station <%= @station.number %></h1>
 
@@ -20,8 +22,8 @@
 </p>
 
 <p>
-  <strong>Coordinates:</strong>
-  <%= @station.coordinate_y %> N, <%= @station.coordinate_x %> W
+  <strong>Popularity rank:</strong>
+  <%= @station.popularity_rank %> (<%= @station.last_status.number_loans %> loans so far today)
 </p>
 
 <div id="bike_availability_chart" style="width:100%; height:400px;"></div>
