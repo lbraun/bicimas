@@ -41,7 +41,7 @@ class Station < ApplicationRecord
   end
 
   def popularity_rank
-    Station.popularity_rankings[id][:rank]
+    (Station.popularity_rankings[id] || {})[:rank]
   end
 
   def last_status

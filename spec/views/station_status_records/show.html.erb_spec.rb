@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "station_status_records/show", type: :view do
   before(:each) do
+    station = Station.create!
     @station_status_record = assign(:station_status_record, StationStatusRecord.create!(
-      :station_id => 2,
+      :station_id => station.id,
       :bikes_total => 3,
       :bikes_available => 4,
-      :anchors => "Anchors",
+      :anchors => "[{\"number\"=>1, \"bicycle\"=>nil, \"incidents\"=>[]}]",
       :online => false,
       :ip => "Ip",
       :number_loans => 5

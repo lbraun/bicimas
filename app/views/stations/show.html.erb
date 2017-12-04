@@ -23,7 +23,11 @@
 
 <p>
   <strong>Popularity rank:</strong>
-  <%= @station.popularity_rank %> (<%= @station.last_status.number_loans %> loans so far today)
+  <% if @station.last_status.present? %>
+    <%= @station.popularity_rank %> (<%= @station.last_status.number_loans %> loans so far today)
+  <% else %>
+    Not sure, sorry!
+  <% end %>
 </p>
 
 <div id="bike_availability_chart" style="width:100%; height:400px;">
