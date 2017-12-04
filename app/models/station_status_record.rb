@@ -41,7 +41,6 @@ class StationStatusRecord < ApplicationRecord
   end
 
   def anchor_records
-    anchors.split '"number"'
     JSON.parse(anchors.gsub('=>',':').gsub('nil', 'null'))
   end
 

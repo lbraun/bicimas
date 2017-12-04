@@ -25,7 +25,7 @@
     <% @stations.each do |station| %>
       <tr>
         <td class="favorite-column">
-          <% if @favorite_station_ids.include?(station.id) %>
+          <% if @favorite_station_ids && @favorite_station_ids.include?(station.id) %>
             <%= link_to "✅", toggle_favorite_station_path(station) %>
           <% else %>
             <%= link_to "⬜", toggle_favorite_station_path(station) %>

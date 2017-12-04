@@ -1,4 +1,5 @@
 # Bicimas
+[![Build Status](https://travis-ci.org/lbraun/bicimas.png)](https://travis-ci.org/lbraun/bicimas)
 
 An app for those who use the Bicicas bike-sharing service in Castellón de la Plana, Spain. Provides supplementary information about the status of stations and individual bicycles. Try it out at [https://bicimas.herokuapp.com](https://bicimas.herokuapp.com)!
 

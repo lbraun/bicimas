@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "station_status_records/index", type: :view do
   before(:each) do
+    @station = assign(:station, Station.create!)
     assign(:station_status_records, [
       StationStatusRecord.create!(
-        :station_id => 2,
+        :station_id => @station.id,
         :bikes_total => 3,
         :bikes_available => 4,
         :anchors => "Anchors",
@@ -13,7 +14,7 @@ RSpec.describe "station_status_records/index", type: :view do
         :number_loans => 5
       ),
       StationStatusRecord.create!(
-        :station_id => 2,
+        :station_id => @station.id,
         :bikes_total => 3,
         :bikes_available => 4,
         :anchors => "Anchors",
@@ -26,7 +27,7 @@ RSpec.describe "station_status_records/index", type: :view do
 
   it "renders a list of station_status_records" do
     render
-    assert_select "tr>td", :text => 2.to_s, :count => 2
+    assert_select "tr>td", :text => @station.id.to_s, :count => 2
     assert_select "tr>td", :text => 3.to_s, :count => 2
     assert_select "tr>td", :text => 4.to_s, :count => 2
     # assert_select "tr>td", :text => "Anchors".to_s, :count => 2

@@ -5,8 +5,8 @@
 <p>
   <strong>Status as of:</strong>
   <%= @station_status_record.created_at.to_s(:long) %>
-  <%= link_to "<< Earlier", @station_status_record.previous_record %> |
-  <%= link_to "Later >>", @station_status_record.next_record %>
+  <%= link_to("<< Earlier", @station_status_record.previous_record) if @station_status_record.previous_record %> |
+  <%= link_to("Later >>", @station_status_record.next_record) if @station_status_record.next_record %>
 </p>
 
 <p>

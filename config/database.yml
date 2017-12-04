@@ -4,8 +4,8 @@ default: &default
   reconnect: false
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  username: <%= ENV['RAILS_POSTGRES_USER'] %>
-  password: <%= ENV['RAILS_POSTGRES_PASSWORD'] %>
+  username: lucasbraun
+
 
 development:
   <<: *default

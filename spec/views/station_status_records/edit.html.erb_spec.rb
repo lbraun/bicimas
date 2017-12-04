@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "station_status_records/edit", type: :view do
   before(:each) do
+    @station = assign(:station_status_record, Station.create!)
     @station_status_record = assign(:station_status_record, StationStatusRecord.create!(
-      :station_id => 1,
+      :station_id => @station.id,
       :bikes_total => 1,
       :bikes_available => 1,
       :anchors => "MyString",
