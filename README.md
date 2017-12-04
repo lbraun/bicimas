@@ -1,4 +1,5 @@
 # README
+[![Build Status](https://travis-ci.org/lbraun/bicimas.png)](https://travis-ci.org/lbraun/bicimas)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
