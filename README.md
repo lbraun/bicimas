@@ -1,24 +1,45 @@
-# README
+# Bicimas
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An app for those who use the Bicicas bike-sharing service in Castellón de la Plana, Spain. Provides supplementary information about the status of stations and individual bicycles. Try it out at [https://bicimas.herokuapp.com](https://bicimas.herokuapp.com)!
 
-Things you may want to cover:
+## Contributing
 
-* Ruby version
+### Getting Started
 
-* System dependencies
+* Getting the code
+  * Run `git clone git@github.com:lbraun/bicimas.git`
 
-* Configuration
+* Installing dependencies
+  * Make sure you have installed everything listed in the dependencies section below.
+  * Install gem dependencies:
+    * Install bundler by running `gem install bundler` from the project's root directory.
+    * Install all required gems by running `bundle install`.
 
-* Database creation
+* Creating the database
+  * Run `rake db:create` from the project's root directory.
 
-* Database initialization
+* Initializing the database
+  * Run `rake db:migrate` from the project's root directory.
 
-* How to run the test suite
+* Running the app locally
+  * Run `rails s` from the project's root directory.
+  * Go to http://localhost:3000 in your web browser
 
-* Services (job queues, cache servers, search engines, etc.)
+* Deploying
+  * Run `git push heroku master` from the project's root directory.
 
-* Deployment instructions
+### Testing
 
-* ...
+* Running all tests
+    * Run `rake` without any arguments from the project's root directory.
+
+### Conventions
+* Ruby: https://github.com/bbatsov/ruby-style-guide
+* RSpec: https://github.com/reachlocal/rspec-style-guide
+* Commit messages: http://chris.beams.io/posts/git-commit/#seven-rules
+
+## Dependencies
+
+* Ruby version 2.4.2 ([installation guide](https://www.ruby-lang.org/en/documentation/installation/))
+
+* PostgreSQL version 10.1 ([installation guide](https://wiki.postgresql.org/wiki/Detailed_installation_guides))
