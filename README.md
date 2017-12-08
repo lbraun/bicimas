@@ -44,3 +44,29 @@ An app for those who use the Bicicas bike-sharing service in Castellón de la Pl
 * Ruby version 2.4.2 ([installation guide](https://www.ruby-lang.org/en/documentation/installation/))
 
 * PostgreSQL version 10.1 ([installation guide](https://wiki.postgresql.org/wiki/Detailed_installation_guides))
+
+## Data manipulations
+
+### Load production data locally
+You can download a fresh backup and load it into your local database using the following commands:
+```
+heroku pg:backups:capture
+heroku pg:backups:download
+rake db:drop
+rake db:create
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U lucasbraun -d bicimas_development latest.dump
+```
+
+You may need to alter privileges on the database to get it to work:
+```
+GRANT ALL PRIVILEGES ON DATABASE bicimas_development to rails;
+ALTER DATABASE bicimas_development OWNER TO rails;
+```
+
+
+### Dump or load YAML data
+The app includes the gem [yaml_db](https://github.com/yamldb/yaml_db) which allows you to use the following commands:
+```
+rake db:dump
+rake db:load
+```

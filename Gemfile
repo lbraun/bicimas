@@ -34,11 +34,13 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Add other gems here in alphabetical order
+gem 'highcharts-rails'
+gem 'jquery-rails'
 gem 'sidekiq'
 gem 'sidekiq-client-cli'
 gem 'whenever', require: false
 gem 'yaml_db'
-gem 'highcharts-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
