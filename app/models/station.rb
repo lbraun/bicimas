@@ -101,6 +101,20 @@ class Station < ApplicationRecord
     rankings
   end
 
+  def self.prepared_for_map
+    all.map do |station|
+      {
+        id: station.id,
+        name: station.to_s,
+        x: station.coordinate_x,
+        y: station.coordinate_y,
+        bikes_available: station.last_status.bikes_available,
+        anchors_available: station.capacity - station.last_status.bikes_total,
+        total: station.capacity,
+      }
+    end
+  end
+
   def self.pretty_name_dictionary
     {
       1 => "UJI - FCHS",

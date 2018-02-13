@@ -23,52 +23,13 @@
   No favorites saved yet!
 <% end %>
 
-<div id="map"></div>
-<script>
-  var map = L.map('map').setView([39.984, -0.044], 13);
-
-  var CartoDB_PositronNoLabels = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
-  }).addTo(map);
-
-
-
-  // ---> Station Markers
-  var bikeIcon = L.Icon.Default;
-
-  <% Station.all.each do |station| %>
-    var marker = L.marker([<%= station.coordinate_y %>, <%= station.coordinate_x %>]).addTo(map);
-    marker.bindPopup("<%= station %>");
-  <% end %>
-
-
-
-  // ---> "You clicked here" alert
-  function onMapClick(e) {
-    console.log("You clicked the map at " + e.latlng);
-    console.log(e);
-  };
-
-  map.on('click', onMapClick);
-
-
-
-  // ---> Geolocation marker
-  map.locate({setView: true, maxZoom: 16});
-
-  function onLocationFound(e) {
-    var radius = e.accuracy / 2;
-    L.marker(e.latlng).addTo(map)
-      .bindPopup("You are within " + radius + " meters from this point").openPopup();
-    L.circle(e.latlng, radius).addTo(map);
-  }
-  map.on('locationfound', onLocationFound);
-
-  function onLocationError(e) {
-    console.log(e.message);
-  }
-  map.on('locationerror', onLocationError);
-
-</script>
+<%=
+  content_tag "div",
+    id: "map",
+    data: {
+      stations: Station.prepared_for_map,
+      favorites: @favorite_stations.map(&:id)
+    } do
+%>
+  Loading map...
+<% end %>
