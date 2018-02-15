@@ -25,9 +25,9 @@
 
 <%=
   content_tag "div",
-    id: "map",
+    id: "availability_map",
     data: {
-      stations: Station.prepared_for_map,
+      stations: Station.availability_map_data,
       favorites: @favorite_stations.map(&:id)
     } do
 %>

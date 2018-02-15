@@ -101,7 +101,7 @@ class Station < ApplicationRecord
     rankings
   end
 
-  def self.prepared_for_map
+  def self.availability_map_data
     all.map do |station|
       {
         id: station.id,

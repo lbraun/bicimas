@@ -1,5 +1,5 @@
 $(function () {
-  var map = L.map('map').setView([39.984, -0.044], 13);
+  var map = L.map('availability_map').setView([39.984, -0.044], 13);
 
   var CartoDB_PositronNoLabels = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
@@ -12,10 +12,10 @@ $(function () {
   // ---> Station Markers
   var bikeIcon = L.Icon.Default;
 
-  var stations = $('#map').data('stations');
+  var stations = $('#availability_map').data('stations');
   var station_markers = [];
 
-  var favorites = $('#map').data('favorites');
+  var favorites = $('#availability_map').data('favorites');
   var favorite_marker_options = {
     radius: 5,
     color: 'orange',
@@ -35,7 +35,7 @@ $(function () {
 
     var marker = L.circle([station.y, station.x], marker_options).addTo(map);
 
-    marker.bindPopup(`<b>${station.name}</b>
+    marker.bindPopup(`<b><a href='/stations/${station.id}'>${station.name}</a></b>
       <br/>Bikes available: ${station.bikes_available} out of ${station.total}
       <br/>Anchors available: ${station.anchors_available} out of ${station.total}`);
 
@@ -81,27 +81,11 @@ $(function () {
   map.on('locationerror', onLocationError);
 });
 
-function generate_star_coords(y, x) {
-  var scale = 0.0001;
-  var o = 10 * scale;
-  var i = 2 * scale;
-  return [
-    [y + o, x + 0],
-    [y + i, x + i],
-    [y + 0, x + o],
-    [y - i, x + i],
-    [y - o, x - 0],
-    [y - i, x - i],
-    [y - 0, x - o],
-    [y + i, x - i],
-  ]
-}
-
 function availability_color(count) {
   if (count > 3) {
     return 'green';
   } else if (count > 0) {
-    return 'yellow';
+    return 'orange';
   } else {
     return 'red';
   }
