@@ -35,9 +35,11 @@ $(function () {
 
     var marker = L.circle([station.y, station.x], marker_options).addTo(map);
 
-    marker.bindPopup(`<b><a href='/stations/${station.id}'>${station.name}</a></b>
-      <br/>Bikes available: ${station.bikes_available} out of ${station.total}
-      <br/>Anchors available: ${station.anchors_available} out of ${station.total}`);
+    marker.bindPopup(
+      "<b><a href='/stations/" + station.id + "'>" + station.name + "</a></b>"
+      + "<br/>Bikes available: " + station.bikes_available + " out of " + station.total
+      + "<br/>Anchors available: " + station.anchors_available + " out of " + station.total
+    );
 
     station_markers.push(marker);
   });
