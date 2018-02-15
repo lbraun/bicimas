@@ -22,3 +22,14 @@
 <% else %>
   No favorites saved yet!
 <% end %>
+
+<%=
+  content_tag "div",
+    id: "availability_map",
+    data: {
+      stations: Station.availability_map_data,
+      favorites: @favorite_stations.map(&:id)
+    } do
+%>
+  Loading map...
+<% end %>

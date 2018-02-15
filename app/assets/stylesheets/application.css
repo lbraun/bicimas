@@ -51,3 +51,5 @@
     text-decoration: none;
     background: none;
 }
+
+#availability_map { height: 500px; }
